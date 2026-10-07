@@ -1,0 +1,87 @@
+Question: Advanced Problem-Solving Approach using linear and non-linear collections.
+An online shopping system must maintain products, quickly search products by ID, and process orders according to priority.
+
+import java.util.*;
+
+class Product {
+    int productId;
+    String productName;
+    double price;
+
+    Product(int productId, String productName, double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return productId + " " + productName + " " + price;
+    }
+}
+
+class Order implements Comparable<Order> {
+    int orderId;
+    int productId;
+    int priority;
+
+    Order(int orderId, int productId, int priority) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Order other) {
+        return Integer.compare(other.priority, this.priority);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<Product> products = new ArrayList<>();
+
+        products.add(new Product(101, "Laptop", 55000));
+        products.add(new Product(102, "Mobile", 25000));
+        products.add(new Product(103, "Headphones", 3000));
+        products.add(new Product(104, "Keyboard", 1500));
+
+      
+        HashMap<Integer, Product> productMap = new HashMap<>();
+
+        for (Product product : products) {
+            productMap.put(product.productId, product);
+        }
+
+        
+        int searchId = 102;
+
+        if (productMap.containsKey(searchId)) {
+            System.out.println("Product Found:");
+            System.out.println(productMap.get(searchId));
+        } else {
+            System.out.println("Product Not Found");
+        }
+
+      
+        PriorityQueue<Order> orderQueue = new PriorityQueue<>();
+
+        orderQueue.add(new Order(1, 101, 2));
+        orderQueue.add(new Order(2, 103, 5));
+        orderQueue.add(new Order(3, 102, 1));
+        orderQueue.add(new Order(4, 104, 4));
+
+        System.out.println("\nOrders Processed:");
+
+        while (!orderQueue.isEmpty()) {
+            Order order = orderQueue.poll();
+
+            System.out.println(
+                "Order ID: " + order.orderId +
+                ", Product ID: " + order.productId +
+                ", Priority: " + order.priority
+            );
+        }
+    }
+}
