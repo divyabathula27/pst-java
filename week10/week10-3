@@ -1,0 +1,47 @@
+
+Question: 3 - Browser History — Linear Collection
+
+A web browser stores recently visited pages. When the user presses the Back button, the most recently visited page should be removed first.
+
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Deque<String> history = new ArrayDeque<>();
+
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        
+        for (int i = 0; i < n; i++) {
+            String page = sc.nextLine();
+            history.push(page);
+        }
+
+        
+        int back = sc.nextInt();
+
+        System.out.println("Browser History:");
+
+        for (int i = 0; i < back; i++) {
+            if (!history.isEmpty()) {
+                System.out.println("Back: " + history.pop());
+            } else {
+                System.out.println("No more history");
+            }
+        }
+
+        System.out.println("Remaining Pages:");
+
+        for (String page : history) {
+            System.out.println(page);
+        }
+
+        sc.close();
+    }
+}
