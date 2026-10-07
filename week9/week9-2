@@ -1,0 +1,51 @@
+Ride sharing platform simulator
+import java.util.Scanner;
+
+class Ride {
+    private String riderName;
+    private String driverName;
+    private double distance;
+
+    Ride(String riderName, String driverName, double distance) {
+        this.riderName = riderName;
+        this.driverName = driverName;
+        this.distance = distance;
+    }
+
+    double calculateFare() {
+        return distance * 15.0;
+    }
+
+    void displayRide() {
+        System.out.println("Rider: " + riderName);
+        System.out.println("Driver: " + driverName);
+        System.out.printf("Distance: %.2f km%n", distance);
+        System.out.printf("Fare: %.2f%n", calculateFare());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            String riderName = sc.next();
+            String driverName = sc.next();
+            double distance = sc.nextDouble();
+
+            if (distance <= 0) {
+                throw new IllegalArgumentException("Invalid distance");
+            }
+
+            Ride ride = new Ride(riderName, driverName, distance);
+            ride.displayRide();
+
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("java.util.InputMismatchException");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        sc.close();
+    }
+}
