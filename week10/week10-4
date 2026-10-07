@@ -1,0 +1,62 @@
+
+Question:-Student Marks Management — Linear Collection
+
+A teacher does not know the number of students in advance. Student marks need to be stored dynamically.
+Question
+
+Write a Java program using an ArrayList to:
+Store marks. 
+Display marks. 
+Find the highest mark. 
+Calculate the average.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<Integer> marks = new ArrayList<>();
+
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+
+        System.out.println("Enter marks:");
+
+        for (int i = 0; i < n; i++) {
+            marks.add(sc.nextInt());
+        }
+
+      
+        System.out.println("Marks:");
+        for (int mark : marks) {
+            System.out.println(mark);
+        }
+
+      
+        int highest = marks.get(0);
+
+        for (int mark : marks) {
+            if (mark > highest) {
+                highest = mark;
+            }
+        }
+
+        
+        int sum = 0;
+
+        for (int mark : marks) {
+            sum += mark;
+        }
+
+        double average = (double) sum / marks.size();
+
+        System.out.println("Highest Mark: " + highest);
+        System.out.printf("Average: %.2f%n", average);
+
+        sc.close();
+    }
+}
+
+
