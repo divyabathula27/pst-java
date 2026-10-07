@@ -1,0 +1,43 @@
+Question:-Student Marks Using HashMap
+Scenario: 
+A teacher wants to store the marks of students using their roll numbers as keys. Write a Java program to display the marks of a particular student.
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        HashMap<Integer, Integer> studentMarks = new HashMap<>();
+
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+
+        
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter roll number: ");
+            int rollNo = sc.nextInt();
+
+            System.out.print("Enter marks: ");
+            int marks = sc.nextInt();
+
+            studentMarks.put(rollNo, marks);
+        }
+
+        
+        System.out.print("Enter roll number to search: ");
+        int searchRollNo = sc.nextInt();
+
+        if (studentMarks.containsKey(searchRollNo)) {
+            System.out.println(
+                "Marks: " + studentMarks.get(searchRollNo)
+            );
+        } else {
+            System.out.println("Student not found");
+        }
+
+        sc.close();
+    }
+}
+
