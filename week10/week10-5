@@ -1,0 +1,113 @@
+Question:-Music Playlist — Singly Linked List
+Scenario
+A music application maintains songs in a playlist. Users can add songs to the playlist and remove a song when they no longer want it.
+Question
+Implement a linked list playlist that supports:
+Adding songs. 
+Removing a song. 
+Displaying the playlist
+
+import java.util.Scanner;
+
+class Song {
+    String songName;
+    Song next;
+
+    Song(String songName) {
+        this.songName = songName;
+        this.next = null;
+    }
+}
+
+class Playlist {
+    Song head;
+    void addSong(String songName) {
+        Song newSong = new Song(songName);
+
+        if (head == null) {
+            head = newSong;
+            return;
+        }
+
+        Song current = head;
+
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        current.next = newSong;
+    }
+
+  
+    void removeSong(String songName) {
+        if (head == null) {
+            System.out.println("Playlist is empty.");
+            return;
+        }
+
+      
+        if (head.songName.equals(songName)) {
+            head = head.next;
+            System.out.println(songName + " removed.");
+            return;
+        }
+
+        Song current = head;
+
+        while (current.next != null &&
+               !current.next.songName.equals(songName)) {
+            current = current.next;
+        }
+
+        if (current.next == null) {
+            System.out.println("Song not found.");
+        } else {
+            current.next = current.next.next;
+            System.out.println(songName + " removed.");
+        }
+    }
+
+    
+    void displayPlaylist() {
+        if (head == null) {
+            System.out.println("Playlist is empty.");
+            return;
+        }
+
+        Song current = head;
+
+        System.out.println("Playlist:");
+
+        while (current != null) {
+            System.out.println(current.songName);
+            current = current.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Playlist playlist = new Playlist();
+
+  
+        playlist.addSong("Believer");
+        playlist.addSong("Perfect");
+        playlist.addSong("Shape of You");
+        playlist.addSong("Faded");
+
+        
+        playlist.displayPlaylist();
+
+      
+        System.out.println("\nRemoving: Perfect");
+        playlist.removeSong("Perfect");
+
+        
+        System.out.println("\nUpdated Playlist:");
+        playlist.displayPlaylist();
+
+        sc.close();
+    }
+}
