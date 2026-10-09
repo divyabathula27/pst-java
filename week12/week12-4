@@ -1,0 +1,40 @@
+Given an integer array and an integer K, find the K most frequently occurring elements.
+Question 4 – Group Anagrams
+Inspired by LeetCode 49
+Problem
+Given a list of strings, group strings that are anagrams of one another.
+Two strings are anagrams if they contain the same characters with the same frequencies.
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        String[] words = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            words[i] = sc.next();
+        }
+
+        Map<String, List<String>> groups = new LinkedHashMap<>();
+
+        
+        for (String word : words) {
+            char[] chars = word.toCharArray();
+            Arrays.sort(chars);
+
+            String key = new String(chars);
+
+            groups.computeIfAbsent(key, k -> new ArrayList<>()).add(word);
+        }
+
+    
+        for (List<String> group : groups.values()) {
+            System.out.println(group);
+        }
+
+        sc.close();
+    }
+}
