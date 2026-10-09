@@ -1,0 +1,48 @@
+Question-Student Marks Indexing System
+Problem
+A university stores student records containing:
+Student ID
+Student Name
+Marks
+Given multiple queries containing a student ID, efficiently retrieve the corresponding student's name and marks.
+The solution must avoid scanning all student records for each query.
+import java.util.*;
+
+public class StudentMarksIndexingSystem {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+
+        HashMap<Integer, String> names = new HashMap<>();
+        HashMap<Integer, Integer> marks = new HashMap<>();
+
+    
+        for (int i = 0; i < N; i++) {
+            int id = sc.nextInt();
+            String name = sc.next();
+            int mark = sc.nextInt();
+
+            names.put(id, name);
+            marks.put(id, mark);
+        }
+
+        
+        int Q = sc.nextInt();
+
+  
+        for (int i = 0; i < Q; i++) {
+            int searchId = sc.nextInt();
+
+            if (names.containsKey(searchId)) {
+                System.out.println("Name: " + names.get(searchId));
+                System.out.println("Marks: " + marks.get(searchId));
+            } else {
+                System.out.println("Student not found");
+            }
+        }
+
+        sc.close();
+    }
+}
