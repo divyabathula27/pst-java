@@ -1,0 +1,49 @@
+Question-Most Frequent Words with Lexicographical Tie Breaking
+Inspired by LeetCode 692
+Problem
+Given N words and an integer K, find the K most frequent words.
+Rules:
+Higher frequency comes first.
+If two words have the same frequency, the lexicographically smaller word comes first.
+
+import java.util.*;
+
+public class MostFrequentWords {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+        String[] words = new String[N];
+
+        for (int i = 0; i < N; i++) {
+            words[i] = sc.next();
+        }
+
+        int K = sc.nextInt();
+
+    
+        HashMap<String, Integer> freq = new HashMap<>();
+
+        for (String word : words) {
+            freq.put(word, freq.getOrDefault(word, 0) + 1);
+        }
+
+    
+        List<String> result = new ArrayList<>(freq.keySet());
+
+        result.sort((a, b) -> {
+            if (!freq.get(a).equals(freq.get(b))) {
+                return freq.get(b) - freq.get(a);
+            }
+            return a.compareTo(b);
+        });
+
+    
+        for (int i = 0; i < Math.min(K, result.size()); i++) {
+            System.out.println(result.get(i));
+        }
+
+        sc.close();
+    }
+}
