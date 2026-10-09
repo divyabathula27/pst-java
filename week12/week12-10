@@ -1,0 +1,108 @@
+Question-Product Inventory and Low-Stock Analysis 
+Problem
+A supermarket maintains product information:
+Product ID
+Product Name
+Stock
+Price
+Perform the following:
+Update stock after sales.
+Find products whose stock is below a given threshold.
+Display products sorted by remaining stock.
+Efficiently retrieve products using their ID.
+
+
+import java.util.*;
+
+class Product {
+    int id;
+    String name;
+    int stock;
+    double price;
+
+    Product(int id, String name, int stock, double price) {
+        this.id = id;
+        this.name = name;
+        this.stock = stock;
+        this.price = price;
+    }
+
+    void display() {
+        System.out.println(id + " " + name + " " + stock + " " + price);
+    }
+}
+
+public class ProductInventory {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        
+        HashMap<Integer, Product> inventory = new HashMap<>();
+
+        int n = sc.nextInt();
+
+        
+        for (int i = 0; i < n; i++) {
+            int id = sc.nextInt();
+            String name = sc.next();
+            int stock = sc.nextInt();
+            double price = sc.nextDouble();
+
+            inventory.put(id, new Product(id, name, stock, price));
+        }
+
+        
+        int sales = sc.nextInt();
+
+        for (int i = 0; i < sales; i++) {
+            int id = sc.nextInt();
+            int quantity = sc.nextInt();
+
+            if (inventory.containsKey(id)) {
+                Product p = inventory.get(id);
+
+                if (quantity >= 0 && quantity <= p.stock) {
+                    p.stock -= quantity;
+                } else {
+                    System.out.println("Invalid sale for product " + id);
+                }
+            } else {
+                System.out.println("Product not found: " + id);
+            }
+        }
+
+        
+        int threshold = sc.nextInt();
+
+        System.out.println("Low-stock products:");
+        for (Product p : inventory.values()) {
+            if (p.stock < threshold) {
+                p.display();
+            }
+        }
+
+        
+        List<Product> products =
+                new ArrayList<>(inventory.values());
+
+        products.sort(Comparator.comparingInt(p -> p.stock));
+
+        System.out.println("Products sorted by stock:");
+        for (Product p : products) {
+            p.display();
+        }
+
+    
+        int searchId = sc.nextInt();
+
+        System.out.println("Product details:");
+        if (inventory.containsKey(searchId)) {
+            inventory.get(searchId).display();
+        } else {
+            System.out.println("Product not found");
+        }
+
+        sc.close();
+    }
+}
