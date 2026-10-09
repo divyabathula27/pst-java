@@ -1,0 +1,73 @@
+Question-Maximum Number of Distinct Elements in a Sliding Window
+Problem
+Given an array and a window size K, find the maximum number of distinct elements present in any contiguous window of size K.
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int k = sc.nextInt();
+
+        if (k <= 0 || k > n) {
+            System.out.println("Invalid window size");
+            sc.close();
+            return;
+        }
+
+        Map<Integer, Integer> frequency = new HashMap<>();
+        int distinct = 0;
+        int maxDistinct = 0;
+
+  
+        for (int i = 0; i < k; i++) {
+            int value = arr[i];
+            int count = frequency.getOrDefault(value, 0);
+
+            if (count == 0) {
+                distinct++;
+            }
+
+            frequency.put(value, count + 1);
+        }
+
+        maxDistinct = distinct;
+
+  
+        for (int i = k; i < n; i++) {
+  
+            int outgoing = arr[i - k];
+            int count = frequency.get(outgoing);
+
+            if (count == 1) {
+                frequency.remove(outgoing);
+                distinct--;
+            } else {
+                frequency.put(outgoing, count - 1);
+            }
+
+          
+            int incoming = arr[i];
+            count = frequency.getOrDefault(incoming, 0);
+
+            if (count == 0) {
+                distinct++;
+            }
+
+            frequency.put(incoming, count + 1);
+
+            maxDistinct = Math.max(maxDistinct, distinct);
+        }
+
+        System.out.println(maxDistinct);
+        sc.close();
+    }
+}
